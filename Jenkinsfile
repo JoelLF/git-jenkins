@@ -8,9 +8,15 @@ pipeline
     {
         nombre_archivo = "salida_proceso.txt"
     }
+    options
+    {
+        timeout(time:10, unit: "MINUTES")
+        quietPeriod(10)
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
     stages
     {
-        stage("Suma")
+        stage("1")
         {
             steps
             {
@@ -21,41 +27,13 @@ pipeline
                     suma = numero1 + numero2
                     println "La suma de los dos numeros es: " + suma
                     stringRes = stringRes + suma + '\n'
-                }
-            }
-        }
-        stage("Resta")
-        {
-            steps
-            {
-                script
-                {
                     resta = numero1 - numero2
                     println "La resta de los dos numeros es: " + resta
                     stringRes = stringRes + resta + '\n'
-                    
-                }
-            }
-        }
-        stage("Multiplicar")
-        {
-            steps
-            {
-                script
-                {
                     mul = numero1 * numero2
                     println "La multiplicacion de los dos numeros es: " + mul
                     stringRes = stringRes + mul + '\n'
-                }
-            }
-        }
-        stage("Dividir")
-        {
-            steps
-            {
-                script
-                {
-                    if (numero2 == 0|| numero1 == 0) {
+                    if (numero2 == 0 || numero1 == 0) {
                         println "Un numero no puede dividirse entre 0"
                         div = 0
                         stringRes = stringRes + div + '\n'
@@ -67,15 +45,48 @@ pipeline
                 }
             }
         }
-        stage("Archivo")
+        stage("2")
+        {
+            steps
+            {
+                bat "ipconfig /flushdns"
+            }
+        }
+        stage("3")
         {
             steps
             {
                 script
                 {
                     writeFile(file: nombre_archivo, text: stringRes)
+                    println "Archivo generado"
                 }
             }
         }
     }
+    post
+{
+    always
+    {
+        echo "El pipeline se ha ejecutado. "
+    }
+    failure
+    {
+        echo 'EL pipeline fallo'
+        script
+        {
+        def errorMessage = currentBuild.rawBuild.getLog(1000).join('\n')
+        echo 'Detalles del error: ${errorMessage}'
+        mail to: "soporte@dominio.com", subject: "Pipeline Fallo", body: "El pipeline no se ejecuto."
+        }
+    }
+    unstable
+    {
+        echo "El pipeline no se ejecuto de forma estable."
+    }
+    success
+    {
+        echo "El pipeline se ejecutó correctamente"        
+    }
+}
 }
