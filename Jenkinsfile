@@ -1,11 +1,11 @@
-def numero1 = 1000
-def numero2 = 3000
 def stringRes = "Resultados: "
 pipeline
 {
     agent any
     environment 
     {
+        numero1 = 1000
+        numero2 = 3000
         nombre_archivo = "salida_proceso.txt"
     }
     options
