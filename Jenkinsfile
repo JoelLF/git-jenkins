@@ -44,7 +44,7 @@ pipeline
                 script
                 {
                     mul = numero1 * numero2
-                    println "La multiplicación de los dos numeros es: " + mul
+                    println "La multiplicacion de los dos numeros es: " + mul
                     stringRes = stringRes + mul + '\n'
                 }
             }
@@ -56,11 +56,11 @@ pipeline
                 script
                 {
                     if (numero2 == 0|| numero1 == 0) {
-                        println "Un número no puede dividirse entre 0"
+                        println "Un numero no puede dividirse entre 0"
                         div = 0
                         stringRes = stringRes + div + '\n'
                     } else {
-                        div = "La divisón de los dos numeros es" + numero2 / numero1
+                        div = "La division de los dos numeros es" + numero2 / numero1
                         println div
                         stringRes = stringRes + div + '\n'
                     }
@@ -73,7 +73,7 @@ pipeline
             {
                 script
                 {
-                    writeFile(file: "calculos_" + fechaFormato + ".txt", text: stringRes)
+                    writeFile(file: nombre_archivo, text: stringRes)
                 }
             }
         }
