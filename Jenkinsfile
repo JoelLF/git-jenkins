@@ -38,8 +38,8 @@ pipeline
                         div = 0
                         stringRes = stringRes + div + '\n'
                     } else {
-                        div = "La division de los dos numeros es" + numero2 / numero1
-                        println div
+                        div = numero2 / numero1
+                        println "La division de los dos numeros es: " + resta
                         stringRes = stringRes + div + '\n'
                     }
                 }
