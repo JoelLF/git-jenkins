@@ -39,7 +39,7 @@ pipeline
                         stringRes = stringRes + div + '\n'
                     } else {
                         div = numero2 / numero1
-                        println "La division de los dos numeros es: " + resta
+                        println "La division de los dos numeros es: " + div
                         stringRes = stringRes + div + '\n'
                     }
                 }
