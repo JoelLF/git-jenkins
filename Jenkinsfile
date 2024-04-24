@@ -1,18 +1,18 @@
+def numero1 = 1000
+def numero2 = 3000
 def stringRes = "Resultados: "
 pipeline
 {
     agent any
     environment 
     {
-        numero1 = 1000
-        numero2 = 3000
         nombre_archivo = "salida_proceso.txt"
     }
     options
     {
-        timeout(time:10, unit: "MINUTES")
-        quietPeriod(10)
-        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timeout(time:5, unit: "MINUTES")
+        quietPeriod(5)
+        buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages
     {
